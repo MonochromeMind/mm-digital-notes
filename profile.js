@@ -92,7 +92,7 @@ function renderStatus() {
   statusCard.classList.remove("is-user", "is-admin", "is-developer");
 
   if (!isLoggedIn()) {
-    statusValue.textContent = "User (Belum Login)";
+    statusValue.textContent = "User";
     statusCodename.textContent = "";
     statusCard.classList.add("is-user");
     loginSection.hidden = false;
