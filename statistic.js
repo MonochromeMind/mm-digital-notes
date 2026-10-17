@@ -1,6 +1,6 @@
 // ============================================
 // PAGES/STATISTIC.JS
-// Logika halaman Statistic
+// Logika halaman Statistic (publik)
 // ============================================
 
 // --------------------------------------------
@@ -48,19 +48,15 @@ async function callAPI(action, payload = {}) {
 
   const auth = getStoredAuth();
 
-  const body = {
-    action,
-    payload,
-    codename: auth.codename,
-    code: auth.code,
-  };
-
-  mmLog("API call:", action);
-
   const res = await fetch(MM_CONFIG.API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      action,
+      payload,
+      codename: auth.codename,
+      code: auth.code,
+    }),
   });
 
   const data = await res.json();
@@ -73,7 +69,7 @@ async function callAPI(action, payload = {}) {
 }
 
 // --------------------------------------------
-// FETCH STATISTICS
+// FETCH STATISTICS (PUBLIK)
 // --------------------------------------------
 
 async function fetchStatistics() {
@@ -86,30 +82,22 @@ async function fetchStatistics() {
 // --------------------------------------------
 
 function renderStatistics(stats) {
-  // Hide loading, show content
   document.getElementById("statLoading").hidden = true;
   document.getElementById("statContent").hidden = false;
 
-  // Overview
   setText("statTotalSheets", stats.totalSheets ?? 0);
   setText("statTotalBooks", stats.totalBooks ?? 0);
   setText("statTotalChapters", stats.totalChapters ?? 0);
-
-  // Hierarchy
   setText("statTotalDisciplines", stats.totalDisciplines ?? 0);
   setText("statTotalFields", stats.totalFields ?? 0);
 
-  // Tier 2
   const tier2 = stats.tier2 || {};
   setText("statBranch", tier2.branch ?? 0);
   setText("statMultidisciplinary", tier2.multidisciplinary ?? 0);
   setText("statApplied", tier2.applied ?? 0);
   setText("statPractical", tier2.practical ?? 0);
 
-  // Sheet Types
   renderSheetTypes(stats.sheetTypes || {});
-
-  // Relations
   renderRelations(stats.relations || {});
 }
 
@@ -167,12 +155,12 @@ function renderRelations(counts) {
   if (!container) return;
 
   const types = [
-    { key: "learning_path",  label: "🔵 Learning Path" },
-    { key: "similarity",     label: "🟢 Similarity" },
-    { key: "influence",      label: "🟡 Influence" },
-    { key: "contradiction",  label: "🔴 Contradiction" },
-    { key: "reinforcement",  label: "🟩 Reinforcement" },
-    { key: "application",    label: "🟠 Application" },
+    { key: "learning_path",  label: "Learning Path" },
+    { key: "similarity",     label: "Similarity" },
+    { key: "influence",      label: "Influence" },
+    { key: "contradiction",  label: "Contradiction" },
+    { key: "reinforcement",  label: "Reinforcement" },
+    { key: "application",    label: "Application" },
   ];
 
   const max = Math.max(...Object.values(counts), 1);
@@ -235,7 +223,6 @@ async function handleLogin(event) {
     closeModal("modal-login");
     showToast(`Selamat datang, ${data.codename}!`, "success");
 
-    // Reload statistic
     await loadStatistic();
   } catch (err) {
     errorEl.textContent = err.message;
@@ -250,6 +237,7 @@ function handleLogout() {
   updateUIForRole();
   showToast("Berhasil keluar", "success");
   closeSidebar();
+  loadStatistic();
 }
 
 // --------------------------------------------
@@ -302,7 +290,7 @@ function initProfileButton() {
 }
 
 // --------------------------------------------
-// LOAD STATISTIC
+// LOAD STATISTIC (PUBLIK)
 // --------------------------------------------
 
 async function loadStatistic() {
@@ -314,12 +302,6 @@ async function loadStatistic() {
 
   if (!isConfigReady()) {
     loadingEl.textContent = "⚙️ API_URL belum diisi di js/config.js";
-    return;
-  }
-
-  // Butuh login dulu (karena Edge Function butuh codename+code)
-  if (!isLoggedIn()) {
-    loadingEl.textContent = "Silakan login dulu untuk melihat statistik.";
     return;
   }
 
@@ -345,11 +327,9 @@ async function initStatistic() {
 
   updateUIForRole();
 
-  // Event listeners
   initProfileButton();
   document.getElementById("form-login")?.addEventListener("submit", handleLogin);
 
-  // Load data
   await loadStatistic();
 }
 
