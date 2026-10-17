@@ -1,4 +1,3 @@
-
 /* ============================================
    BASE.CSS
    MONOCHROME MIND — DARK EDITORIAL LUXURY
@@ -14,6 +13,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Fix: pastikan [hidden] benar-benar menyembunyikan elemen */
+[hidden] {
+  display: none !important;
 }
 
 html {

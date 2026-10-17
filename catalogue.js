@@ -3,9 +3,6 @@
 // Logika lengkap halaman Catalogue + Custom List
 // ============================================
 
-// --------------------------------------------
-// STATE
-// --------------------------------------------
 let allSheets = [];
 let allBooks = [];
 let allChapters = [];
@@ -19,9 +16,9 @@ let currentCodename = null;
 let pendingDelete = null;
 let pendingHelperSheetId = null;
 let pendingHelperList = [];
-let pendingAddToList = null;  // { type: "sheet"|"book", id }
-let pendingRemoveFromList = null; // { listId, itemId }
-let pendingDeleteList = null; // listId
+let pendingAddToList = null;
+let pendingRemoveFromList = null;
+let pendingDeleteList = null;
 let currentOpenListId = null;
 
 // --------------------------------------------
@@ -156,8 +153,8 @@ function getListById(type, listId) {
 function openCustomListModal() {
   const type = currentMode === "notes" ? "sheet" : "book";
   const title = currentMode === "notes"
-    ? "📁 Custom List — Sheet"
-    : "📁 Custom List — Digital Books";
+    ? "Custom List — Sheet"
+    : "Custom List — Digital Books";
 
   document.getElementById("customListTitle").textContent = title;
   document.getElementById("customListSearch").value = "";
@@ -188,7 +185,7 @@ function renderCustomListDaftar(type, searchQuery = "") {
     item.className = "custom-list-item";
     item.innerHTML = `
       <div class="custom-list-item__info">
-        <span class="custom-list-item__name">📁 ${escapeHTML(list.name)}</span>
+        <span class="custom-list-item__name">${escapeHTML(list.name)}</span>
         <span class="custom-list-item__meta">${list.items.length} item</span>
       </div>
       <div class="custom-list-item__actions">
@@ -201,18 +198,15 @@ function renderCustomListDaftar(type, searchQuery = "") {
 }
 
 function initCustomListEvents() {
-  // Tombol utama Custom List
   document.getElementById("btnCustomList")?.addEventListener("click", () => {
     openCustomListModal();
   });
 
-  // Search list
   document.getElementById("customListSearch")?.addEventListener("input", (e) => {
     const type = currentMode === "notes" ? "sheet" : "book";
     renderCustomListDaftar(type, e.target.value.trim());
   });
 
-  // Tombol buat list baru
   document.getElementById("btnNewList")?.addEventListener("click", () => {
     const type = currentMode === "notes" ? "sheet" : "book";
     const lists = getCustomLists(type);
@@ -225,16 +219,13 @@ function initCustomListEvents() {
     openModal("modal-new-list");
   });
 
-  // Submit buat list baru
   document.getElementById("form-new-list")?.addEventListener("submit", handleNewList);
 
-  // Tombol kembali dari buka list
   document.getElementById("btnBackToList")?.addEventListener("click", () => {
     closeModal("modal-open-list");
     openCustomListModal();
   });
 
-  // Delegasi klik di container list
   document.getElementById("customListContainer")?.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-action]");
     if (!btn) return;
@@ -246,10 +237,7 @@ function initCustomListEvents() {
     else if (action === "delete-list") askDeleteList(id);
   });
 
-  // Konfirmasi hapus list
   document.getElementById("btnConfirmDeleteList")?.addEventListener("click", confirmDeleteList);
-
-  // Konfirmasi hapus item dari list
   document.getElementById("btnConfirmRemove")?.addEventListener("click", confirmRemoveFromList);
 }
 
@@ -305,7 +293,7 @@ function openList(type, listId) {
 
   currentOpenListId = listId;
 
-  document.getElementById("openListTitle").textContent = "📁 " + list.name;
+  document.getElementById("openListTitle").textContent = list.name;
   document.getElementById("openListCount").textContent = `${list.items.length} item`;
 
   renderOpenList(type, list);
@@ -328,12 +316,11 @@ function renderOpenList(type, list) {
       : allBooks.find((b) => b.id === itemId);
 
     if (!data) {
-      // Item mungkin sudah dihapus dari database
       const item = document.createElement("div");
       item.className = "custom-list-item";
       item.innerHTML = `
         <div class="custom-list-item__info">
-          <span class="custom-list-item__name">⚠️ Item tidak ditemukan</span>
+          <span class="custom-list-item__name">Item tidak ditemukan</span>
           <span class="custom-list-item__meta">Mungkin sudah dihapus</span>
         </div>
         <div class="custom-list-item__actions">
@@ -374,7 +361,6 @@ function renderOpenList(type, list) {
     container.appendChild(item);
   });
 
-  // Delegasi hapus item
   container.onclick = (e) => {
     const btn = e.target.closest('[data-action="remove-from-list"]');
     if (btn) {
@@ -422,7 +408,7 @@ function renderAddToList(type, itemId) {
 
     row.innerHTML = `
       <div class="custom-list-row__info">
-        <span class="custom-list-row__name">📁 ${escapeHTML(list.name)}</span>
+        <span class="custom-list-row__name">${escapeHTML(list.name)}</span>
         <span class="custom-list-row__count">${list.items.length}/${CL_MAX_ITEMS}${alreadyHas ? " · sudah ada" : ""}${isFull && !alreadyHas ? " · penuh" : ""}</span>
       </div>
       ${alreadyHas || isFull ? "" : `<button class="custom-list-row__btn" data-list-id="${list.id}" title="Tambahkan">+</button>`}
@@ -489,7 +475,6 @@ function confirmRemoveFromList() {
   pendingRemoveFromList = null;
   showToast("Item dihapus dari list", "success");
 
-  // Refresh tampilan
   const updatedList = getListById(type, listId);
   if (updatedList) {
     document.getElementById("openListCount").textContent = `${updatedList.items.length} item`;
@@ -562,9 +547,9 @@ function createSheetCard(sheet) {
     </div>
     <h3 class="card__header">${escapeHTML(sheet.header)}</h3>
     <div class="card__meta">
-      <span class="card__type">${emoji} ${escapeHTML(label)}</span>
+      <span class="card__type">${emoji} ${escapeHTML(label)} Sheet</span>
       ${category !== "—" ? `<span class="card__category">· ${escapeHTML(category)}</span>` : ""}
-      ${chapterName ? `<span class="card__category">· 📖 ${escapeHTML(chapterName)}</span>` : ""}
+      ${chapterName ? `<span class="card__category">· ${escapeHTML(chapterName)}</span>` : ""}
     </div>
     ${sheet.description ? `<p class="card__desc">${escapeHTML(sheet.description)}</p>` : ""}
     <span class="card__date">${formatDate(sheet.created_at)}</span>
@@ -1074,8 +1059,8 @@ function populateChapterDropdown(selectId) {
   if (!select) return;
 
   select.innerHTML = `
-    <option value="">— Tidak ada bab —</option>
-    <option value="__new__">+ Tambah Bab Baru</option>
+    <option value="">Tidak ada Chapter</option>
+    <option value="__new__">+ Tambah Chapter Baru</option>
   `;
 
   allChapters.forEach((c) => {
@@ -1149,11 +1134,11 @@ function addRelationItem() {
   item.innerHTML = `
     <div class="relation-item__fields">
       <select class="form__select relation-target">
-        <option value="">— Pilih sheet —</option>
+        <option value="">Pilih sheet</option>
         ${allSheets.map((s) => `<option value="${s.id}">${escapeHTML(s.header)}</option>`).join("")}
       </select>
       <select class="form__select relation-type">
-        <option value="">— Tipe relasi —</option>
+        <option value="">Tipe relasi</option>
         <option value="learning_path">Learning Path</option>
         <option value="similarity">Similarity</option>
         <option value="influence">Influence</option>

@@ -12,9 +12,6 @@
 </head>
 <body>
 
-<!-- ============================================
-     HEADER
-     ============================================ -->
 <header class="navbar">
   <button class="navbar__hamburger" id="btnSidebar" aria-label="Buka menu">
     <span></span><span></span><span></span>
@@ -31,9 +28,6 @@
   </div>
 </header>
 
-<!-- ============================================
-     SIDEBAR
-     ============================================ -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar__overlay" id="sidebarOverlay"></div>
   
@@ -52,18 +46,13 @@
   </div>
 </aside>
 
-<!-- ============================================
-     MAIN
-     ============================================ -->
 <main class="main">
 
-  <!-- Toggle Notes / Digital Books -->
   <section class="catalogue-toggle" id="catalogueToggle">
     <button class="toggle-btn is-active" data-mode="notes">📝 Notes</button>
     <button class="toggle-btn" data-mode="books">📚 Digital Books</button>
   </section>
 
-  <!-- Search -->
   <section class="search">
     <input 
       type="search" 
@@ -74,38 +63,35 @@
     >
   </section>
 
-  <!-- Custom List Button -->
   <section class="custom-list-bar">
     <button class="btn btn--ghost" id="btnCustomList">
       📁 Custom List
     </button>
   </section>
 
-  <!-- Admin Actions -->
   <section class="admin-actions" id="adminActions" hidden>
     <button class="btn btn--primary" id="btnAdd">➕ Tambah</button>
   </section>
 
-  <!-- Filter -->
   <section class="filters" id="filters">
     <select class="filter__select" id="filterSort">
-      <option value="date-desc">📅 Terbaru</option>
-      <option value="date-asc">📅 Terlama</option>
+      <option value="date-desc">Terbaru</option>
+      <option value="date-asc">Terlama</option>
       <option value="name-asc">A-Z</option>
       <option value="name-desc">Z-A</option>
     </select>
     
     <select class="filter__select" id="filterType">
-      <option value="">— Semua Tipe —</option>
-      <option value="book">📘 Book</option>
-      <option value="target">🎯 Target</option>
-      <option value="pencil">✏️ Pencil</option>
-      <option value="lamp">💡 Lamp</option>
-      <option value="crown">👑 Crown</option>
-      <option value="analyst">🔍 Analyst</option>
-      <option value="rocket">🚀 Rocket</option>
-      <option value="specific">🚩 Specific</option>
-      <option value="more">➕ More</option>
+      <option value="">Semua Tipe</option>
+      <option value="book">📘 Book Sheet</option>
+      <option value="target">🎯 Target Sheet</option>
+      <option value="pencil">✏️ Pencil Sheet</option>
+      <option value="lamp">💡 Lamp Sheet</option>
+      <option value="crown">👑 Crown Sheet</option>
+      <option value="analyst">🔍 Analyst Sheet</option>
+      <option value="rocket">🚀 Rocket Sheet</option>
+      <option value="specific">🚩 Specific Sheet</option>
+      <option value="more">➕ More Sheet</option>
     </select>
     
     <div class="filter__toggle-group" id="filterViewToggle">
@@ -114,16 +100,12 @@
     </div>
   </section>
 
-  <!-- Catalogue -->
   <section class="catalogue" id="catalogue">
     <p class="catalogue__empty" id="catalogueEmpty">Memuat data...</p>
   </section>
 
 </main>
 
-<!-- ============================================
-     FOOTER
-     ============================================ -->
 <footer class="footer">
   <p class="footer__text">Monochrome Mind Community · v1.0.0</p>
   <p class="footer__text footer__text--muted">
@@ -131,9 +113,6 @@
   </p>
 </footer>
 
-<!-- ============================================
-     MODAL: LOGIN
-     ============================================ -->
 <div class="modal" id="modal-login">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content">
@@ -162,26 +141,23 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: CUSTOM LIST (Daftar)
-     ============================================ -->
 <div class="modal" id="modal-custom-list">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--scroll">
     <button class="modal__close" data-close>✕</button>
-    <h2 class="modal__title" id="customListTitle">📁 Custom List</h2>
+    <h2 class="modal__title" id="customListTitle">Custom List</h2>
     
     <div class="form__group">
       <input 
         type="search" 
         class="form__input" 
         id="customListSearch" 
-        placeholder="🔍 Cari list..."
+        placeholder="Cari list"
       >
     </div>
     
     <div style="margin-bottom: var(--sp-md);">
-      <button class="btn btn--primary btn--sm" id="btnNewList">➕ Buat List Baru</button>
+      <button class="btn btn--primary btn--sm" id="btnNewList">Buat List Baru</button>
     </div>
     
     <div id="customListContainer" class="custom-list-container">
@@ -190,9 +166,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: BUAT LIST BARU
-     ============================================ -->
 <div class="modal" id="modal-new-list">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--small">
@@ -215,14 +188,11 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: BUKA LIST (isi list)
-     ============================================ -->
 <div class="modal" id="modal-open-list">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--scroll">
     <button class="modal__close" data-close>✕</button>
-    <h2 class="modal__title" id="openListTitle">📁 List</h2>
+    <h2 class="modal__title" id="openListTitle">List</h2>
     
     <div style="margin-bottom: var(--sp-md);">
       <button class="btn btn--ghost btn--sm" id="btnBackToList">← Kembali</button>
@@ -236,9 +206,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: TAMBAH KE CUSTOM LIST
-     ============================================ -->
 <div class="modal" id="modal-add-to-list">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--small">
@@ -257,9 +224,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: ADD SHEET
-     ============================================ -->
 <div class="modal" id="modal-add-sheet">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--scroll">
@@ -274,18 +238,18 @@
       </div>
       
       <div class="form__group">
-        <label class="form__label" for="add-type">Jenis Sheet <span class="form__required">*</span></label>
+        <label class="form__label" for="add-type">Sheet Type <span class="form__required">*</span></label>
         <select class="form__select" id="add-type" required>
-          <option value="">— Pilih tipe —</option>
-          <option value="book">📘 Book</option>
-          <option value="target">🎯 Target</option>
-          <option value="pencil">✏️ Pencil</option>
-          <option value="lamp">💡 Lamp</option>
-          <option value="crown">👑 Crown</option>
-          <option value="analyst">🔍 Analyst</option>
-          <option value="rocket">🚀 Rocket</option>
-          <option value="specific">🚩 Specific</option>
-          <option value="more">➕ More</option>
+          <option value="">Pilih tipe</option>
+          <option value="book">📘 Book Sheet</option>
+          <option value="target">🎯 Target Sheet</option>
+          <option value="pencil">✏️ Pencil Sheet</option>
+          <option value="lamp">💡 Lamp Sheet</option>
+          <option value="crown">👑 Crown Sheet</option>
+          <option value="analyst">🔍 Analyst Sheet</option>
+          <option value="rocket">🚀 Rocket Sheet</option>
+          <option value="specific">🚩 Specific Sheet</option>
+          <option value="more">➕ More Sheet</option>
         </select>
       </div>
       
@@ -294,7 +258,7 @@
         <div class="form__radio-group">
           <label class="form__radio">
             <input type="radio" name="add-id-mode" value="auto" checked>
-            <span>Generate otomatis</span>
+            <span>Otomatis</span>
           </label>
           <label class="form__radio">
             <input type="radio" name="add-id-mode" value="manual">
@@ -310,35 +274,35 @@
       </div>
       
       <fieldset class="form__fieldset">
-        <legend class="form__legend">Bab / Chapter (Opsional)</legend>
+        <legend class="form__legend">Chapter (Opsional)</legend>
         
         <div class="form__group">
-          <label class="form__label" for="add-chapter-select">Pilih Bab</label>
+          <label class="form__label" for="add-chapter-select">Pilih Chapter</label>
           <select class="form__select" id="add-chapter-select">
-            <option value="">— Tidak ada bab —</option>
-            <option value="__new__">+ Tambah Bab Baru</option>
+            <option value="">Tidak ada Chapter</option>
+            <option value="__new__">Chapter Baru</option>
           </select>
         </div>
         
         <div class="form__group" id="group-new-chapter" hidden>
-          <label class="form__label" for="add-chapter-name">Nama Bab Baru</label>
-          <input type="text" class="form__input" id="add-chapter-name" placeholder="Ketik nama bab...">
+          <label class="form__label" for="add-chapter-name">Nama Chapter Baru</label>
+          <input type="text" class="form__input" id="add-chapter-name" placeholder="Ketik nama chapter...">
         </div>
       </fieldset>
       
       <div class="form__group">
-        <label class="form__label" for="add-desc">Deskripsi Singkat (Opsional)</label>
+        <label class="form__label" for="add-desc">Description (Opsional)</label>
         <textarea class="form__textarea" id="add-desc" maxlength="1000" rows="4" placeholder="Catatan singkat dari pembuat..."></textarea>
         <p class="form__hint"><span id="add-desc-count">0</span>/1000 karakter</p>
       </div>
       
       <fieldset class="form__fieldset">
-        <legend class="form__legend">Hierarchy (Opsional)</legend>
+        <legend class="form__legend">Hierarchy Classification (Opsional)</legend>
         
         <div class="form__group">
           <label class="form__label" for="add-tier2-type">Tipe Tier 2</label>
           <select class="form__select" id="add-tier2-type">
-            <option value="">— Pilih tipe —</option>
+            <option value="">Pilih tipe</option>
             <option value="branch">Branch</option>
             <option value="multidisciplinary">Multidisciplinary</option>
             <option value="applied">Applied</option>
@@ -347,13 +311,13 @@
         </div>
         
         <div class="form__group" id="group-discipline" hidden>
-          <label class="form__label" for="add-discipline">Disiplin Ilmu (Tier 1)</label>
+          <label class="form__label" for="add-discipline">Discipline (Tier 1)</label>
           <input type="text" class="form__input" id="add-discipline" list="list-disciplines" placeholder="Ketik atau pilih...">
           <datalist id="list-disciplines"></datalist>
         </div>
         
         <div class="form__group" id="group-tier2-name" hidden>
-          <label class="form__label" for="add-tier2-name">Nama Tier 2</label>
+          <label class="form__label" for="add-tier2-name">Tier 2</label>
           <input type="text" class="form__input" id="add-tier2-name" placeholder="Ketik nama...">
         </div>
         
@@ -364,9 +328,9 @@
       </fieldset>
       
       <fieldset class="form__fieldset">
-        <legend class="form__legend">Relational (Opsional)</legend>
+        <legend class="form__legend">Relational Classification (Opsional)</legend>
         <div id="add-relations-container"></div>
-        <button type="button" class="btn btn--ghost btn--sm" id="btnAddRelation">+ Tambah Relasi</button>
+        <button type="button" class="btn btn--ghost btn--sm" id="btnAddRelation">Tambah Relasi</button>
       </fieldset>
       
       <p class="form__error" id="add-sheet-error" hidden></p>
@@ -379,9 +343,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: EDIT SHEET
-     ============================================ -->
 <div class="modal" id="modal-edit-sheet">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--scroll">
@@ -402,17 +363,17 @@
       </div>
       
       <div class="form__group">
-        <label class="form__label" for="edit-type">Jenis Sheet <span class="form__required">*</span></label>
+        <label class="form__label" for="edit-type">Sheet Type <span class="form__required">*</span></label>
         <select class="form__select" id="edit-type" required>
-          <option value="book">📘 Book</option>
-          <option value="target">🎯 Target</option>
-          <option value="pencil">✏️ Pencil</option>
-          <option value="lamp">💡 Lamp</option>
-          <option value="crown">👑 Crown</option>
-          <option value="analyst">🔍 Analyst</option>
-          <option value="rocket">🚀 Rocket</option>
-          <option value="specific">🚩 Specific</option>
-          <option value="more">➕ More</option>
+          <option value="book">📘 Book Sheet</option>
+          <option value="target">🎯 Target Sheet</option>
+          <option value="pencil">✏️ Pencil Sheet</option>
+          <option value="lamp">💡 Lamp Sheet</option>
+          <option value="crown">👑 Crown Sheet</option>
+          <option value="analyst">🔍 Analyst Sheet</option>
+          <option value="rocket">🚀 Rocket Sheet</option>
+          <option value="specific">🚩 Specific Sheet</option>
+          <option value="more">➕ More Sheet</option>
         </select>
       </div>
       
@@ -427,27 +388,27 @@
       </div>
       
       <div class="form__group">
-        <label class="form__label" for="edit-chapter-select">Bab / Chapter</label>
+        <label class="form__label" for="edit-chapter-select">Chapter</label>
         <select class="form__select" id="edit-chapter-select">
-          <option value="">— Tidak ada bab —</option>
-          <option value="__new__">+ Tambah Bab Baru</option>
+          <option value="">Tidak ada Chapter</option>
+          <option value="__new__">Tambah Chapter Baru</option>
         </select>
-        <input type="text" class="form__input" id="edit-chapter-name" placeholder="Nama bab baru..." hidden style="margin-top: 8px;">
+        <input type="text" class="form__input" id="edit-chapter-name" placeholder="Nama chapter baru..." hidden style="margin-top: 8px;">
       </div>
       
       <div class="form__group">
-        <label class="form__label" for="edit-desc">Deskripsi Singkat</label>
+        <label class="form__label" for="edit-desc">Description</label>
         <textarea class="form__textarea" id="edit-desc" maxlength="1000" rows="4"></textarea>
         <p class="form__hint"><span id="edit-desc-count">0</span>/1000 karakter</p>
       </div>
       
       <fieldset class="form__fieldset">
-        <legend class="form__legend">Hierarchy</legend>
+        <legend class="form__legend">Hierarchy Classification</legend>
         
         <div class="form__group">
           <label class="form__label" for="edit-tier2-type">Tipe Tier 2</label>
           <select class="form__select" id="edit-tier2-type">
-            <option value="">— Tidak ada —</option>
+            <option value="">Tidak ada</option>
             <option value="branch">Branch</option>
             <option value="multidisciplinary">Multidisciplinary</option>
             <option value="applied">Applied</option>
@@ -456,12 +417,12 @@
         </div>
         
         <div class="form__group" id="edit-group-discipline" hidden>
-          <label class="form__label" for="edit-discipline">Disiplin Ilmu (Tier 1)</label>
+          <label class="form__label" for="edit-discipline">Discipline (Tier 1)</label>
           <input type="text" class="form__input" id="edit-discipline">
         </div>
         
         <div class="form__group" id="edit-group-tier2-name" hidden>
-          <label class="form__label" for="edit-tier2-name">Nama Tier 2</label>
+          <label class="form__label" for="edit-tier2-name">Tier 2</label>
           <input type="text" class="form__input" id="edit-tier2-name">
         </div>
         
@@ -480,7 +441,7 @@
       <p class="form__error" id="edit-sheet-error" hidden></p>
       
       <div class="form__actions">
-        <button type="button" class="btn btn--danger" id="btnDeleteSheet">🗑️ Hapus</button>
+        <button type="button" class="btn btn--danger" id="btnDeleteSheet">Hapus</button>
         <button type="button" class="btn btn--ghost" data-close>Batal</button>
         <button type="submit" class="btn btn--primary">Simpan Perubahan</button>
       </div>
@@ -488,9 +449,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: HELPER MARK
-     ============================================ -->
 <div class="modal" id="modal-helper-mark">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--small">
@@ -513,9 +471,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: ADD BOOK
-     ============================================ -->
 <div class="modal" id="modal-add-book">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--scroll">
@@ -558,9 +513,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: EDIT BOOK
-     ============================================ -->
 <div class="modal" id="modal-edit-book">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--scroll">
@@ -598,7 +550,7 @@
       <p class="form__error" id="edit-book-error" hidden></p>
       
       <div class="form__actions">
-        <button type="button" class="btn btn--danger" id="btnDeleteBook">🗑️ Hapus</button>
+        <button type="button" class="btn btn--danger" id="btnDeleteBook">Hapus</button>
         <button type="button" class="btn btn--ghost" data-close>Batal</button>
         <button type="submit" class="btn btn--primary">Simpan Perubahan</button>
       </div>
@@ -606,9 +558,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: CONFIRM DELETE
-     ============================================ -->
 <div class="modal" id="modal-confirm-delete">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--small">
@@ -623,9 +572,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: CONFIRM REMOVE FROM LIST
-     ============================================ -->
 <div class="modal" id="modal-confirm-remove-item">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--small">
@@ -640,9 +586,6 @@
   </div>
 </div>
 
-<!-- ============================================
-     MODAL: CONFIRM DELETE LIST
-     ============================================ -->
 <div class="modal" id="modal-confirm-delete-list">
   <div class="modal__overlay" data-close></div>
   <div class="modal__content modal__content--small">
@@ -657,14 +600,8 @@
   </div>
 </div>
 
-<!-- ============================================
-     TOAST
-     ============================================ -->
 <div class="toast" id="toast" hidden></div>
 
-<!-- ============================================
-     SCRIPT
-     ============================================ -->
 <script src="config.js"></script>
 <script src="ui.js"></script>
 <script src="catalogue.js"></script>
