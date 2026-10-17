@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide & Infos — Monochrome Mind Digital Notes</title>
+  
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="guide.css">
+</head>
+<body>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header class="navbar">
+  <button class="navbar__hamburger" id="btnSidebar" aria-label="Buka menu">
+    <span></span><span></span><span></span>
+  </button>
+  
+  <div class="navbar__brand">
+    <h1 class="navbar__title">Monochrome Mind</h1>
+    <p class="navbar__subtitle">Digital Notes</p>
+  </div>
+  
+  <div class="navbar__actions">
+    <span class="navbar__role-badge" id="roleBadge"></span>
+    <button class="navbar__profile" id="btnProfile" aria-label="Profil">👤</button>
+  </div>
+</header>
+
+<!-- ============================================
+     SIDEBAR
+     ============================================ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar__overlay" id="sidebarOverlay"></div>
+  
+  <div class="sidebar__panel">
+    <div class="sidebar__header">
+      <h2 class="sidebar__title">Menu</h2>
+      <button class="sidebar__close" id="btnCloseSidebar">✕</button>
+    </div>
+    
+    <nav class="sidebar__nav">
+      <a href="catalogue.html" class="sidebar__link">📚 Catalogue</a>
+      <a href="statistic.html" class="sidebar__link">📊 Statistic</a>
+      <a href="guide.html" class="sidebar__link is-active">📖 Guide & Infos</a>
+      <a href="profile.html" class="sidebar__link">👤 Profile</a>
+    </nav>
+  </div>
+</aside>
+
+<!-- ============================================
+     MAIN
+     ============================================ -->
+<main class="main">
+
+  <header class="page-header">
+    <h1 class="page-header__title">Guide & Infos</h1>
+    <p class="page-header__subtitle">Panduan penggunaan dan informasi Monochrome Mind</p>
+  </header>
+
+  <!-- Tabs -->
+  <div class="guide-tabs" id="guideTabs">
+    <button class="guide-tab is-active" data-tab="guide">Guide</button>
+    <button class="guide-tab" data-tab="infos">Infos</button>
+  </div>
+
+  <!-- Action bar (Edit button untuk Developer) -->
+  <div class="guide-actions" id="guideActions" hidden>
+    <button class="btn btn--primary btn--sm" id="btnEditContent">
+      ✏️ Edit <span id="editButtonLabel">Guide</span>
+    </button>
+  </div>
+
+  <!-- Content: Guide -->
+  <section class="guide-panel" id="panel-guide">
+    <div class="guide-loading" id="guideLoadingGuide">Memuat...</div>
+    <div class="guide-content" id="contentGuide" hidden></div>
+  </section>
+
+  <!-- Content: Infos -->
+  <section class="guide-panel" id="panel-infos" hidden>
+    <div class="guide-loading" id="guideLoadingInfos">Memuat...</div>
+    <div class="guide-content" id="contentInfos" hidden></div>
+  </section>
+
+</main>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  <p class="footer__text">Monochrome Mind Community · v1.0.0</p>
+  <p class="footer__text footer__text--muted">
+    Think freely. Question deeply. Discuss respectfully.
+  </p>
+</footer>
+
+<!-- ============================================
+     MODAL: LOGIN
+     ============================================ -->
+<div class="modal" id="modal-login">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Masuk Mode</h2>
+    <p class="modal__desc">Masukkan codename dan kode akses.</p>
+    
+    <form class="form" id="form-login">
+      <div class="form__group">
+        <label class="form__label" for="login-codename">Codename</label>
+        <input type="text" class="form__input" id="login-codename" required autocomplete="username">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="login-code">Kode Akses</label>
+        <input type="password" class="form__input" id="login-code" required autocomplete="current-password">
+      </div>
+      
+      <p class="form__error" id="loginError" hidden></p>
+      
+      <div class="form__actions">
+        <button type="button" class="btn btn--ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn--primary">Masuk</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: EDIT CONTENT
+     ============================================ -->
+<div class="modal" id="modal-edit-content">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--scroll">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Edit <span id="editModalLabel">Guide</span></h2>
+    <p class="modal__desc">Format Markdown didukung: **bold**, *italic*, # heading, - list, dan lain-lain.</p>
+    
+    <form class="form" id="form-edit-content">
+      <div class="form__group">
+        <label class="form__label" for="edit-content-area">Konten</label>
+        <textarea 
+          class="form__textarea form__textarea--code" 
+          id="edit-content-area" 
+          rows="15" 
+          placeholder="# Panduan&#10;&#10;Tulis konten di sini..."
+        ></textarea>
+        <p class="form__hint">Gunakan Markdown untuk format.</p>
+      </div>
+      
+      <p class="form__error" id="edit-content-error" hidden></p>
+      
+      <div class="form__actions">
+        <button type="button" class="btn btn--ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn--primary">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     TOAST
+     ============================================ -->
+<div class="toast" id="toast" hidden></div>
+
+<!-- ============================================
+     SCRIPT
+     ============================================ -->
+<script src="config.js"></script>
+<script src="ui.js"></script>
+<script src="guide.js"></script>
+
+</body>
+</html>

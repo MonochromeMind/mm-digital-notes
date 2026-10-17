@@ -1,0 +1,344 @@
+/* ============================================
+   PAGES/CATALOGUE.CSS
+   Style khusus halaman Catalogue + Custom List
+   ============================================ */
+
+/* --------------------------------------------
+   1. LAYOUT CATALOGUE
+   -------------------------------------------- */
+.catalogue-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+}
+
+/* --------------------------------------------
+   2. STICKY SEARCH + FILTER
+   -------------------------------------------- */
+.catalogue-sticky {
+  position: sticky;
+  top: var(--navbar-height);
+  z-index: 40;
+  background: var(--bg-primary);
+  padding-top: var(--sp-md);
+  padding-bottom: var(--sp-sm);
+  border-bottom: 1px solid var(--border);
+  margin-left: calc(-1 * var(--sp-md));
+  margin-right: calc(-1 * var(--sp-md));
+  padding-left: var(--sp-md);
+  padding-right: var(--sp-md);
+}
+
+/* --------------------------------------------
+   3. CATALOGUE HEADER
+   -------------------------------------------- */
+.catalogue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-md);
+  margin-bottom: var(--sp-sm);
+  flex-wrap: wrap;
+}
+
+.catalogue-header__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.catalogue-header__count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------
+   4. SORT DROPDOWN
+   -------------------------------------------- */
+.catalogue-sort {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-xs);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.catalogue-sort select {
+  padding: var(--sp-xs) var(--sp-sm);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+/* --------------------------------------------
+   5. SECTION DIVIDER
+   -------------------------------------------- */
+.catalogue-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+}
+
+.catalogue-section__title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  padding-bottom: var(--sp-xs);
+  border-bottom: 1px solid var(--border);
+}
+
+.catalogue-section__title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* --------------------------------------------
+   6. FAVORITE STAR
+   -------------------------------------------- */
+.card__fav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-size: var(--fs-md);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.card__fav:hover {
+  color: var(--warning);
+  transform: scale(1.15);
+}
+
+.card__fav.is-active {
+  color: var(--warning);
+}
+
+/* --------------------------------------------
+   7. TOMBOL TAMBAH KE CUSTOM LIST (di kartu)
+   -------------------------------------------- */
+.card__add-to-list {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--sp-xs);
+  padding: var(--sp-xs) var(--sp-sm);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  align-self: flex-start;
+}
+
+.card__add-to-list:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+}
+
+/* --------------------------------------------
+   8. CUSTOM LIST CONTAINER
+   -------------------------------------------- */
+.custom-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+  margin-top: var(--sp-sm);
+}
+
+/* --------------------------------------------
+   9. CUSTOM LIST ITEM
+   -------------------------------------------- */
+.custom-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-sm);
+  padding: var(--sp-sm) var(--sp-md);
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.custom-list-item:hover {
+  background: var(--bg-hover);
+  border-left-color: var(--accent);
+}
+
+.custom-list-item__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.custom-list-item__name {
+  font-family: var(--font-serif);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.custom-list-item__meta {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.custom-list-item__actions {
+  display: flex;
+  gap: var(--sp-xs);
+  flex-shrink: 0;
+}
+
+.custom-list-item__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: var(--fs-md);
+  transition: all var(--transition-fast);
+}
+
+.custom-list-item__btn:hover {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+}
+
+.custom-list-item__btn--danger:hover {
+  color: var(--danger);
+}
+
+/* --------------------------------------------
+   10. CUSTOM LIST ROW (untuk pilih list di modal add-to-list)
+   -------------------------------------------- */
+.custom-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-sm);
+  padding: var(--sp-sm) var(--sp-md);
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.custom-list-row:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+}
+
+.custom-list-row__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.custom-list-row__name {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.custom-list-row__count {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.custom-list-row__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  background: transparent;
+  border: none;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.custom-list-row__btn:hover {
+  background: var(--accent-bg);
+}
+
+/* Row yang disabled (sudah ada di list / list penuh) */
+.custom-list-row.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.custom-list-row.is-disabled .custom-list-row__btn {
+  display: none;
+}
+
+/* --------------------------------------------
+   11. EMPTY STATE
+   -------------------------------------------- */
+.custom-list-empty {
+  padding: var(--sp-lg) var(--sp-md);
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm);
+}
+
+/* --------------------------------------------
+   12. RESPONSIVE
+   -------------------------------------------- */
+@media (min-width: 640px) {
+  .catalogue-sticky {
+    margin-left: calc(-1 * var(--sp-lg));
+    margin-right: calc(-1 * var(--sp-lg));
+    padding-left: var(--sp-lg);
+    padding-right: var(--sp-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .catalogue-sticky {
+    margin-left: calc(-1 * var(--sp-xl));
+    margin-right: calc(-1 * var(--sp-xl));
+    padding-left: var(--sp-xl);
+    padding-right: var(--sp-xl);
+  }
+
+  .catalogue-header__title {
+    font-size: var(--fs-2xl);
+  }
+}

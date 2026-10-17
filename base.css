@@ -1,0 +1,495 @@
+
+/* ============================================
+   BASE.CSS
+   MONOCHROME MIND — DARK EDITORIAL LUXURY
+   Foundation · Typography · Responsive · A11y
+   ============================================ */
+
+/* --------------------------------------------
+   1. RESET
+   -------------------------------------------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  scrollbar-gutter: stable;
+}
+
+body {
+  min-width: 320px;
+}
+
+/* --------------------------------------------
+   2. DESIGN TOKENS
+   Dark Monochrome · Editorial · Quiet Luxury
+   -------------------------------------------- */
+:root {
+  /* Background */
+  --bg-deep:       #101010;
+  --bg-primary:    #141414;
+  --bg-elevated:   #1c1c1c;
+  --bg-hover:      #262626;
+  --bg-overlay:    rgba(0, 0, 0, 0.78);
+
+  /* Teks */
+  --text-primary:   #f0eee8;
+  --text-secondary: #aaa9a3;
+  --text-muted:     #858580;
+  --text-inverse:   #141414;
+
+  /* Border */
+  --border:        #303030;
+  --border-light:  #414141;
+  --border-strong: #575750;
+
+  /* Aksen monokrom — tanpa ungu */
+  --accent:        #d8d5cc;
+  --accent-hover:  #f0eee8;
+  --accent-muted:  #55554f;
+  --accent-bg:     rgba(216, 213, 204, 0.08);
+
+  /* Status */
+  --danger:        #f08080;
+  --danger-hover:  #ff9999;
+  --success:       #a5c9ad;
+  --warning:       #e4c98b;
+
+  /* Typography */
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono',
+    'Courier New', monospace;
+
+  /* Font sizes */
+  --fs-xs:  0.75rem;
+  --fs-sm:  0.875rem;
+  --fs-md:  1rem;
+  --fs-lg:  1.125rem;
+  --fs-xl:  1.25rem;
+  --fs-2xl: 1.5rem;
+  --fs-3xl: 2rem;
+
+  /* Editorial type scale */
+  --fs-display: clamp(2.25rem, 5vw, 4.25rem);
+  --fs-page-title: clamp(1.8rem, 4vw, 3rem);
+  --fs-section-title: clamp(1.35rem, 2.5vw, 1.8rem);
+
+  /* Spacing */
+  --sp-xs:  0.25rem;
+  --sp-sm:  0.5rem;
+  --sp-md:  1rem;
+  --sp-lg:  1.5rem;
+  --sp-xl:  2rem;
+  --sp-2xl: 3rem;
+
+  /* Radius — refined, not overly rounded */
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --radius-full: 999px;
+
+  /* Motion */
+  --transition-fast: 0.16s ease;
+  --transition-base: 0.24s ease;
+
+  /* Layout */
+  --navbar-height: 72px;
+  --max-width: 1200px;
+  --page-gutter: clamp(1rem, 4vw, 2.5rem);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.22);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.38);
+
+  /* Safe-area helpers for mobile */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+}
+
+/* --------------------------------------------
+   3. BASE DOCUMENT
+   -------------------------------------------- */
+body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+img,
+video {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  min-width: 0;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+#app,
+main,
+.main-content {
+  min-width: 0;
+}
+
+/* --------------------------------------------
+   4. EDITORIAL TYPOGRAPHY
+   -------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-page-title);
+  line-height: 1.12;
+}
+
+h2 {
+  font-size: var(--fs-section-title);
+}
+
+h3 {
+  font-size: var(--fs-xl);
+}
+
+h4 {
+  font-size: var(--fs-lg);
+}
+
+p {
+  margin-bottom: var(--sp-md);
+  overflow-wrap: break-word;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  text-underline-offset: 0.22em;
+  transition:
+    color var(--transition-fast),
+    text-decoration-color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+small {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+strong,
+b {
+  font-weight: 650;
+}
+
+em,
+i {
+  font-family: var(--font-serif);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+/* Editorial utility styles */
+.eyebrow,
+.overline,
+.editorial-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.page-title,
+.editorial-title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-page-title);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.editorial-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  border: 0;
+}
+
+/* --------------------------------------------
+   5. FORM ELEMENTS
+   -------------------------------------------- */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
+
+select {
+  max-width: 100%;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled,
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* Number input */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* --------------------------------------------
+   6. SCROLLBARS
+   -------------------------------------------- */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border: 2px solid var(--bg-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) var(--bg-primary);
+}
+
+/* --------------------------------------------
+   7. SELECTION
+   -------------------------------------------- */
+::selection {
+  background: #d8d5cc;
+  color: #141414;
+}
+
+/* --------------------------------------------
+   8. UTILITY CLASSES
+   -------------------------------------------- */
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+.w-full {
+  width: 100%;
+}
+
+.min-w-0 {
+  min-width: 0;
+}
+
+/* --------------------------------------------
+   9. ACCESSIBILITY
+   -------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------
+   10. RESPONSIVE FOUNDATION
+   -------------------------------------------- */
+@media (max-width: 640px) {
+  :root {
+    --navbar-height: 60px;
+
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.8125rem;
+    --fs-md: 0.9375rem;
+    --fs-lg: 1.0625rem;
+    --fs-xl: 1.125rem;
+    --fs-2xl: 1.35rem;
+    --fs-3xl: 1.75rem;
+
+    --sp-lg: 1.25rem;
+    --sp-xl: 1.5rem;
+    --sp-2xl: 2.25rem;
+  }
+
+  body {
+    line-height: 1.65;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+}

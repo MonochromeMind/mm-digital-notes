@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue — Monochrome Mind Digital Notes</title>
+  
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="layout.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="catalogue.css">
+</head>
+<body>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header class="navbar">
+  <button class="navbar__hamburger" id="btnSidebar" aria-label="Buka menu">
+    <span></span><span></span><span></span>
+  </button>
+  
+  <div class="navbar__brand">
+    <h1 class="navbar__title">Monochrome Mind</h1>
+    <p class="navbar__subtitle">Digital Notes</p>
+  </div>
+  
+  <div class="navbar__actions">
+    <span class="navbar__role-badge" id="roleBadge"></span>
+    <button class="navbar__profile" id="btnProfile" aria-label="Profil">👤</button>
+  </div>
+</header>
+
+<!-- ============================================
+     SIDEBAR
+     ============================================ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar__overlay" id="sidebarOverlay"></div>
+  
+  <div class="sidebar__panel">
+    <div class="sidebar__header">
+      <h2 class="sidebar__title">Menu</h2>
+      <button class="sidebar__close" id="btnCloseSidebar">✕</button>
+    </div>
+    
+    <nav class="sidebar__nav">
+      <a href="catalogue.html" class="sidebar__link is-active">📚 Catalogue</a>
+      <a href="statistic.html" class="sidebar__link">📊 Statistic</a>
+      <a href="guide.html" class="sidebar__link">📖 Guide & Infos</a>
+      <a href="profile.html" class="sidebar__link">👤 Profile</a>
+    </nav>
+  </div>
+</aside>
+
+<!-- ============================================
+     MAIN
+     ============================================ -->
+<main class="main">
+
+  <!-- Toggle Notes / Digital Books -->
+  <section class="catalogue-toggle" id="catalogueToggle">
+    <button class="toggle-btn is-active" data-mode="notes">📝 Notes</button>
+    <button class="toggle-btn" data-mode="books">📚 Digital Books</button>
+  </section>
+
+  <!-- Search -->
+  <section class="search">
+    <input 
+      type="search" 
+      id="searchInput" 
+      class="search__input" 
+      placeholder="🔍 Cari..."
+      autocomplete="off"
+    >
+  </section>
+
+  <!-- Custom List Button -->
+  <section class="custom-list-bar">
+    <button class="btn btn--ghost" id="btnCustomList">
+      📁 Custom List
+    </button>
+  </section>
+
+  <!-- Admin Actions -->
+  <section class="admin-actions" id="adminActions" hidden>
+    <button class="btn btn--primary" id="btnAdd">➕ Tambah</button>
+  </section>
+
+  <!-- Filter -->
+  <section class="filters" id="filters">
+    <select class="filter__select" id="filterSort">
+      <option value="date-desc">📅 Terbaru</option>
+      <option value="date-asc">📅 Terlama</option>
+      <option value="name-asc">A-Z</option>
+      <option value="name-desc">Z-A</option>
+    </select>
+    
+    <select class="filter__select" id="filterType">
+      <option value="">— Semua Tipe —</option>
+      <option value="book">📘 Book</option>
+      <option value="target">🎯 Target</option>
+      <option value="pencil">✏️ Pencil</option>
+      <option value="lamp">💡 Lamp</option>
+      <option value="crown">👑 Crown</option>
+      <option value="analyst">🔍 Analyst</option>
+      <option value="rocket">🚀 Rocket</option>
+      <option value="specific">🚩 Specific</option>
+      <option value="more">➕ More</option>
+    </select>
+    
+    <div class="filter__toggle-group" id="filterViewToggle">
+      <button class="toggle-sm is-active" data-view="sheets">Sheets</button>
+      <button class="toggle-sm" data-view="chapters">Chapters</button>
+    </div>
+  </section>
+
+  <!-- Catalogue -->
+  <section class="catalogue" id="catalogue">
+    <p class="catalogue__empty" id="catalogueEmpty">Memuat data...</p>
+  </section>
+
+</main>
+
+<!-- ============================================
+     FOOTER
+     ============================================ -->
+<footer class="footer">
+  <p class="footer__text">Monochrome Mind Community · v1.0.0</p>
+  <p class="footer__text footer__text--muted">
+    Think freely. Question deeply. Discuss respectfully.
+  </p>
+</footer>
+
+<!-- ============================================
+     MODAL: LOGIN
+     ============================================ -->
+<div class="modal" id="modal-login">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Masuk Mode</h2>
+    <p class="modal__desc">Masukkan codename dan kode akses.</p>
+    
+    <form class="form" id="form-login">
+      <div class="form__group">
+        <label class="form__label" for="login-codename">Codename</label>
+        <input type="text" class="form__input" id="login-codename" required autocomplete="username">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="login-code">Kode Akses</label>
+        <input type="password" class="form__input" id="login-code" required autocomplete="current-password">
+      </div>
+      
+      <p class="form__error" id="loginError" hidden></p>
+      
+      <div class="form__actions">
+        <button type="button" class="btn btn--ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn--primary">Masuk</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: CUSTOM LIST (Daftar)
+     ============================================ -->
+<div class="modal" id="modal-custom-list">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--scroll">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title" id="customListTitle">📁 Custom List</h2>
+    
+    <div class="form__group">
+      <input 
+        type="search" 
+        class="form__input" 
+        id="customListSearch" 
+        placeholder="🔍 Cari list..."
+      >
+    </div>
+    
+    <div style="margin-bottom: var(--sp-md);">
+      <button class="btn btn--primary btn--sm" id="btnNewList">➕ Buat List Baru</button>
+    </div>
+    
+    <div id="customListContainer" class="custom-list-container">
+      <p class="form__hint">Belum ada list.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: BUAT LIST BARU
+     ============================================ -->
+<div class="modal" id="modal-new-list">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--small">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Buat List Baru</h2>
+    
+    <form class="form" id="form-new-list">
+      <div class="form__group">
+        <label class="form__label" for="new-list-name">Nama List</label>
+        <input type="text" class="form__input" id="new-list-name" required maxlength="50" placeholder="Misal: Filsafat">
+      </div>
+      
+      <p class="form__error" id="new-list-error" hidden></p>
+      
+      <div class="form__actions">
+        <button type="button" class="btn btn--ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn--primary">Buat</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: BUKA LIST (isi list)
+     ============================================ -->
+<div class="modal" id="modal-open-list">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--scroll">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title" id="openListTitle">📁 List</h2>
+    
+    <div style="margin-bottom: var(--sp-md);">
+      <button class="btn btn--ghost btn--sm" id="btnBackToList">← Kembali</button>
+    </div>
+    
+    <p class="form__hint" id="openListCount">0 item</p>
+    
+    <div id="openListContainer" class="custom-list-container">
+      <p class="form__hint">List kosong.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: TAMBAH KE CUSTOM LIST
+     ============================================ -->
+<div class="modal" id="modal-add-to-list">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--small">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Tambah ke Custom List</h2>
+    
+    <p class="modal__desc" id="addToListItemName">Item</p>
+    
+    <div id="addToListContainer" class="custom-list-container">
+      <p class="form__hint">Belum ada list. Buat list dulu.</p>
+    </div>
+    
+    <div class="form__actions">
+      <button type="button" class="btn btn--ghost" data-close>Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: ADD SHEET
+     ============================================ -->
+<div class="modal" id="modal-add-sheet">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--scroll">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Tambah Sheet Baru</h2>
+    
+    <form class="form" id="form-add-sheet">
+      <div class="form__group">
+        <label class="form__label" for="add-title">Judul Sheet <span class="form__required">*</span></label>
+        <input type="text" class="form__input" id="add-title" required>
+        <p class="form__hint" id="add-header-preview"></p>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="add-type">Jenis Sheet <span class="form__required">*</span></label>
+        <select class="form__select" id="add-type" required>
+          <option value="">— Pilih tipe —</option>
+          <option value="book">📘 Book</option>
+          <option value="target">🎯 Target</option>
+          <option value="pencil">✏️ Pencil</option>
+          <option value="lamp">💡 Lamp</option>
+          <option value="crown">👑 Crown</option>
+          <option value="analyst">🔍 Analyst</option>
+          <option value="rocket">🚀 Rocket</option>
+          <option value="specific">🚩 Specific</option>
+          <option value="more">➕ More</option>
+        </select>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label">ID Number <span class="form__required">*</span></label>
+        <div class="form__radio-group">
+          <label class="form__radio">
+            <input type="radio" name="add-id-mode" value="auto" checked>
+            <span>Generate otomatis</span>
+          </label>
+          <label class="form__radio">
+            <input type="radio" name="add-id-mode" value="manual">
+            <span>Isi manual</span>
+          </label>
+        </div>
+        <input type="text" class="form__input" id="add-id-manual" placeholder="*000003" disabled>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="add-link">Link Google Drive <span class="form__required">*</span></label>
+        <input type="url" class="form__input" id="add-link" placeholder="https://drive.google.com/..." required>
+      </div>
+      
+      <fieldset class="form__fieldset">
+        <legend class="form__legend">Bab / Chapter (Opsional)</legend>
+        
+        <div class="form__group">
+          <label class="form__label" for="add-chapter-select">Pilih Bab</label>
+          <select class="form__select" id="add-chapter-select">
+            <option value="">— Tidak ada bab —</option>
+            <option value="__new__">+ Tambah Bab Baru</option>
+          </select>
+        </div>
+        
+        <div class="form__group" id="group-new-chapter" hidden>
+          <label class="form__label" for="add-chapter-name">Nama Bab Baru</label>
+          <input type="text" class="form__input" id="add-chapter-name" placeholder="Ketik nama bab...">
+        </div>
+      </fieldset>
+      
+      <div class="form__group">
+        <label class="form__label" for="add-desc">Deskripsi Singkat (Opsional)</label>
+        <textarea class="form__textarea" id="add-desc" maxlength="1000" rows="4" placeholder="Catatan singkat dari pembuat..."></textarea>
+        <p class="form__hint"><span id="add-desc-count">0</span>/1000 karakter</p>
+      </div>
+      
+      <fieldset class="form__fieldset">
+        <legend class="form__legend">Hierarchy (Opsional)</legend>
+        
+        <div class="form__group">
+          <label class="form__label" for="add-tier2-type">Tipe Tier 2</label>
+          <select class="form__select" id="add-tier2-type">
+            <option value="">— Pilih tipe —</option>
+            <option value="branch">Branch</option>
+            <option value="multidisciplinary">Multidisciplinary</option>
+            <option value="applied">Applied</option>
+            <option value="practical">Practical</option>
+          </select>
+        </div>
+        
+        <div class="form__group" id="group-discipline" hidden>
+          <label class="form__label" for="add-discipline">Disiplin Ilmu (Tier 1)</label>
+          <input type="text" class="form__input" id="add-discipline" list="list-disciplines" placeholder="Ketik atau pilih...">
+          <datalist id="list-disciplines"></datalist>
+        </div>
+        
+        <div class="form__group" id="group-tier2-name" hidden>
+          <label class="form__label" for="add-tier2-name">Nama Tier 2</label>
+          <input type="text" class="form__input" id="add-tier2-name" placeholder="Ketik nama...">
+        </div>
+        
+        <div class="form__group" id="group-field" hidden>
+          <label class="form__label" for="add-field">Field (Tier 3)</label>
+          <input type="text" class="form__input" id="add-field" placeholder="Ketik nama field...">
+        </div>
+      </fieldset>
+      
+      <fieldset class="form__fieldset">
+        <legend class="form__legend">Relational (Opsional)</legend>
+        <div id="add-relations-container"></div>
+        <button type="button" class="btn btn--ghost btn--sm" id="btnAddRelation">+ Tambah Relasi</button>
+      </fieldset>
+      
+      <p class="form__error" id="add-sheet-error" hidden></p>
+      
+      <div class="form__actions">
+        <button type="button" class="btn btn--ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn--primary">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: EDIT SHEET
+     ============================================ -->
+<div class="modal" id="modal-edit-sheet">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--scroll">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Edit Sheet</h2>
+    
+    <form class="form" id="form-edit-sheet">
+      <input type="hidden" id="edit-id">
+      
+      <div class="form__group">
+        <p class="form__hint" id="edit-info"></p>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-title">Judul Sheet <span class="form__required">*</span></label>
+        <input type="text" class="form__input" id="edit-title" required>
+        <p class="form__hint" id="edit-header-preview"></p>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-type">Jenis Sheet <span class="form__required">*</span></label>
+        <select class="form__select" id="edit-type" required>
+          <option value="book">📘 Book</option>
+          <option value="target">🎯 Target</option>
+          <option value="pencil">✏️ Pencil</option>
+          <option value="lamp">💡 Lamp</option>
+          <option value="crown">👑 Crown</option>
+          <option value="analyst">🔍 Analyst</option>
+          <option value="rocket">🚀 Rocket</option>
+          <option value="specific">🚩 Specific</option>
+          <option value="more">➕ More</option>
+        </select>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-id-number">ID Number <span class="form__required">*</span></label>
+        <input type="text" class="form__input" id="edit-id-number" required>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-link">Link Google Drive <span class="form__required">*</span></label>
+        <input type="url" class="form__input" id="edit-link" required>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-chapter-select">Bab / Chapter</label>
+        <select class="form__select" id="edit-chapter-select">
+          <option value="">— Tidak ada bab —</option>
+          <option value="__new__">+ Tambah Bab Baru</option>
+        </select>
+        <input type="text" class="form__input" id="edit-chapter-name" placeholder="Nama bab baru..." hidden style="margin-top: 8px;">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-desc">Deskripsi Singkat</label>
+        <textarea class="form__textarea" id="edit-desc" maxlength="1000" rows="4"></textarea>
+        <p class="form__hint"><span id="edit-desc-count">0</span>/1000 karakter</p>
+      </div>
+      
+      <fieldset class="form__fieldset">
+        <legend class="form__legend">Hierarchy</legend>
+        
+        <div class="form__group">
+          <label class="form__label" for="edit-tier2-type">Tipe Tier 2</label>
+          <select class="form__select" id="edit-tier2-type">
+            <option value="">— Tidak ada —</option>
+            <option value="branch">Branch</option>
+            <option value="multidisciplinary">Multidisciplinary</option>
+            <option value="applied">Applied</option>
+            <option value="practical">Practical</option>
+          </select>
+        </div>
+        
+        <div class="form__group" id="edit-group-discipline" hidden>
+          <label class="form__label" for="edit-discipline">Disiplin Ilmu (Tier 1)</label>
+          <input type="text" class="form__input" id="edit-discipline">
+        </div>
+        
+        <div class="form__group" id="edit-group-tier2-name" hidden>
+          <label class="form__label" for="edit-tier2-name">Nama Tier 2</label>
+          <input type="text" class="form__input" id="edit-tier2-name">
+        </div>
+        
+        <div class="form__group" id="edit-group-field" hidden>
+          <label class="form__label" for="edit-field">Field (Tier 3)</label>
+          <input type="text" class="form__input" id="edit-field">
+        </div>
+      </fieldset>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-revision">Revision Code</label>
+        <input type="text" class="form__input" id="edit-revision" placeholder="R I : 16/10/26">
+        <p class="form__hint">Format: R [romawi] : DD/MM/YY</p>
+      </div>
+      
+      <p class="form__error" id="edit-sheet-error" hidden></p>
+      
+      <div class="form__actions">
+        <button type="button" class="btn btn--danger" id="btnDeleteSheet">🗑️ Hapus</button>
+        <button type="button" class="btn btn--ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn--primary">Simpan Perubahan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: HELPER MARK
+     ============================================ -->
+<div class="modal" id="modal-helper-mark">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--small">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Helper Mark</h2>
+    <p class="modal__desc">Ada kontributor lain yang membantu sheet ini? (Opsional)</p>
+    
+    <div class="form__group">
+      <label class="form__label" for="helper-input">Codename Kontributor</label>
+      <input type="text" class="form__input" id="helper-input" placeholder="Codename...">
+      <p class="form__hint">Tekan Enter untuk menambah. Bisa lebih dari satu.</p>
+    </div>
+    
+    <div id="helper-list" class="helper-list"></div>
+    
+    <div class="form__actions">
+      <button type="button" class="btn btn--ghost" id="btnSkipHelper">Skip</button>
+      <button type="button" class="btn btn--primary" id="btnSaveHelper">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: ADD BOOK
+     ============================================ -->
+<div class="modal" id="modal-add-book">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--scroll">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Tambah Buku Digital</h2>
+    
+    <form class="form" id="form-add-book">
+      <div class="form__group">
+        <label class="form__label" for="book-title">Judul Buku <span class="form__required">*</span></label>
+        <input type="text" class="form__input" id="book-title" required>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="book-author">Penulis</label>
+        <input type="text" class="form__input" id="book-author">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="book-year">Tahun</label>
+        <input type="number" class="form__input" id="book-year" min="1000" max="2100">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="book-topic">Topik</label>
+        <input type="text" class="form__input" id="book-topic">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="book-link">Link Google Drive <span class="form__required">*</span></label>
+        <input type="url" class="form__input" id="book-link" required>
+      </div>
+      
+      <p class="form__error" id="add-book-error" hidden></p>
+      
+      <div class="form__actions">
+        <button type="button" class="btn btn--ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn--primary">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: EDIT BOOK
+     ============================================ -->
+<div class="modal" id="modal-edit-book">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--scroll">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Edit Buku</h2>
+    
+    <form class="form" id="form-edit-book">
+      <input type="hidden" id="edit-book-id">
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-book-title">Judul Buku <span class="form__required">*</span></label>
+        <input type="text" class="form__input" id="edit-book-title" required>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-book-author">Penulis</label>
+        <input type="text" class="form__input" id="edit-book-author">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-book-year">Tahun</label>
+        <input type="number" class="form__input" id="edit-book-year" min="1000" max="2100">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-book-topic">Topik</label>
+        <input type="text" class="form__input" id="edit-book-topic">
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label" for="edit-book-link">Link Google Drive <span class="form__required">*</span></label>
+        <input type="url" class="form__input" id="edit-book-link" required>
+      </div>
+      
+      <p class="form__error" id="edit-book-error" hidden></p>
+      
+      <div class="form__actions">
+        <button type="button" class="btn btn--danger" id="btnDeleteBook">🗑️ Hapus</button>
+        <button type="button" class="btn btn--ghost" data-close>Batal</button>
+        <button type="submit" class="btn btn--primary">Simpan Perubahan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: CONFIRM DELETE
+     ============================================ -->
+<div class="modal" id="modal-confirm-delete">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--small">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Hapus Item?</h2>
+    <p class="modal__desc" id="confirm-delete-text">Item ini akan dihapus permanen.</p>
+    
+    <div class="form__actions">
+      <button type="button" class="btn btn--ghost" data-close>Batal</button>
+      <button type="button" class="btn btn--danger" id="btnConfirmDelete">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: CONFIRM REMOVE FROM LIST
+     ============================================ -->
+<div class="modal" id="modal-confirm-remove-item">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--small">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Hapus dari List?</h2>
+    <p class="modal__desc" id="confirm-remove-text">Item ini akan dihapus dari list.</p>
+    
+    <div class="form__actions">
+      <button type="button" class="btn btn--ghost" data-close>Batal</button>
+      <button type="button" class="btn btn--danger" id="btnConfirmRemove">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     MODAL: CONFIRM DELETE LIST
+     ============================================ -->
+<div class="modal" id="modal-confirm-delete-list">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__content modal__content--small">
+    <button class="modal__close" data-close>✕</button>
+    <h2 class="modal__title">Hapus List?</h2>
+    <p class="modal__desc" id="confirm-delete-list-text">List ini akan dihapus permanen.</p>
+    
+    <div class="form__actions">
+      <button type="button" class="btn btn--ghost" data-close>Batal</button>
+      <button type="button" class="btn btn--danger" id="btnConfirmDeleteList">Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     TOAST
+     ============================================ -->
+<div class="toast" id="toast" hidden></div>
+
+<!-- ============================================
+     SCRIPT
+     ============================================ -->
+<script src="config.js"></script>
+<script src="ui.js"></script>
+<script src="catalogue.js"></script>
+
+</body>
+</html>

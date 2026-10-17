@@ -1,0 +1,198 @@
+/* ============================================
+   PAGES/PROFILE.CSS
+   Style khusus halaman Profile
+   ============================================ */
+
+/* --------------------------------------------
+   1. PAGE HEADER
+   -------------------------------------------- */
+.page-header {
+  margin-bottom: var(--sp-xl);
+  padding-bottom: var(--sp-md);
+  border-bottom: 2px solid var(--border);
+}
+
+.page-header__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-xs);
+}
+
+.page-header__subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+/* --------------------------------------------
+   2. STATUS CARD
+   -------------------------------------------- */
+.profile-status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+  padding: var(--sp-lg);
+  margin-bottom: var(--sp-xl);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+}
+
+.profile-status__label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.profile-status__value {
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.profile-status__code {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+/* Warna border berbeda per role */
+.profile-status.is-user {
+  border-left-color: var(--border-strong);
+}
+
+.profile-status.is-admin {
+  border-left-color: var(--warning);
+}
+
+.profile-status.is-developer {
+  border-left-color: var(--accent);
+}
+
+/* --------------------------------------------
+   3. FEATURES SECTION
+   -------------------------------------------- */
+.profile-features {
+  margin-bottom: var(--sp-xl);
+}
+
+.profile-features__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  margin-bottom: var(--sp-md);
+  padding-bottom: var(--sp-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+}
+
+.profile-features__title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.profile-features__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-xs);
+}
+
+.profile-features__list li {
+  padding: var(--sp-sm) var(--sp-md);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  color: var(--text-primary);
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.profile-features__list li:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-light);
+  transform: translateX(4px);
+}
+
+/* --------------------------------------------
+   4. LOGIN FORM
+   -------------------------------------------- */
+.profile-login {
+  padding: var(--sp-lg);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--sp-xl);
+}
+
+.profile-login__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-xs);
+}
+
+.profile-login__desc {
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-lg);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------
+   5. LOGOUT BUTTON
+   -------------------------------------------- */
+.profile-logout {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.profile-logout .btn {
+  padding: var(--sp-sm) var(--sp-lg);
+}
+
+/* --------------------------------------------
+   6. RESPONSIVE
+   -------------------------------------------- */
+@media (min-width: 640px) {
+  .page-header__title {
+    font-size: var(--fs-3xl);
+  }
+
+  .profile-status__value {
+    font-size: var(--fs-3xl);
+  }
+
+  .profile-features__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-features__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
